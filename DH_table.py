@@ -3,14 +3,14 @@ import time
 import numpy as np
 
 # -------------------------------------
-# ?? ????????
+# 🔧 ค่าคงที่
 # -------------------------------------
 pi = np.pi
 d2r = pi / 180
 r2d = 1 / d2r
 
 # -------------------------------------
-# ?? ???????? DH Matrix (?????? degree)
+# 🔧 ฟังก์ชัน DH Matrix (ใช้แบบ degree)
 # -------------------------------------
 def DH_matrix(theta, d, a, alpha):
     theta = np.deg2rad(theta)
@@ -23,16 +23,16 @@ def DH_matrix(theta, d, a, alpha):
     ])
 
 # -------------------------------------
-# ?? Forward Kinematics ???? DH Table
+# 🔧 Forward Kinematics ด้วย DH Table
 # -------------------------------------
 def forward_kinematics(joint_angles):
     DH_params = [
-        [0,      90, 0.089159, joint_angles[0]],
-        [-0.425, 0,  0,        joint_angles[1]],
-        [-0.39225,0, 0,        joint_angles[2]],
-        [0,      90, 0.10915,  joint_angles[3]],
-        [0,     -90, 0.09465,  joint_angles[4]],
-        [0,      0,  0.0823,   joint_angles[5]]
+        [0,       90,    0.089159, joint_angles[0]],
+        [-0.425,   0,    0,         joint_angles[1]],
+        [-0.39225, 0,    0,         joint_angles[2]],
+        [0,       90,    0.10915,   joint_angles[3]],
+        [0,      -90,    0.09465,   joint_angles[4]],
+        [0,        0,    0.0823,    joint_angles[5]],
     ]
     T = np.eye(4)
     for a, alpha, d, theta in DH_params:
@@ -40,7 +40,7 @@ def forward_kinematics(joint_angles):
     return T
 
 # -------------------------------------
-# ?? ???? Rotation Matrix ? Euler XYZ (Deg)
+# 🔧 แปลง Rotation Matrix → Euler XYZ (Deg)
 # -------------------------------------
 def rot2euler_xyz(R):
     if abs(R[2, 0]) != 1:
@@ -58,16 +58,16 @@ def rot2euler_xyz(R):
     return np.array([np.rad2deg(x), np.rad2deg(y), np.rad2deg(z)])
 
 # -------------------------------------
-# ?? ????? Jacobian
+# 🔧 คำนวณ Jacobian
 # -------------------------------------
 def jacobian(joint_angles):
     DH_params = [
-        [0,      90, 0.089159, joint_angles[0]],
-        [-0.425, 0,  0,        joint_angles[1]],
-        [-0.39225,0, 0,        joint_angles[2]],
-        [0,      90, 0.10915,  joint_angles[3]],
-        [0,     -90, 0.09465,  joint_angles[4]],
-        [0,      0,  0.0823,   joint_angles[5]]
+        [0,       90,    0.089159, joint_angles[0]],
+        [-0.425,   0,    0,         joint_angles[1]],
+        [-0.39225, 0,    0,         joint_angles[2]],
+        [0,       90,    0.10915,   joint_angles[3]],
+        [0,      -90,    0.09465,   joint_angles[4]],
+        [0,        0,    0.0823,    joint_angles[5]],
     ]
     T = np.eye(4)
     positions = [T[:3, 3]]
@@ -88,14 +88,14 @@ def jacobian(joint_angles):
     return J
 
 # -------------------------------------
-# ?? sysCall_init()
+# 🔧 sysCall_init()
 # -------------------------------------
 def sysCall_init():
     global sim
     sim = require("sim")
 
 # -------------------------------------
-# ?? sysCall_thread(): ?????? loop
+# 🔁 sysCall_thread(): รันแบบ loop
 # -------------------------------------
 def sysCall_thread():
     global sim
